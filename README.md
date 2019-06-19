@@ -1,1 +1,1 @@
-# supercolliderSampler
+# sampler
