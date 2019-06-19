@@ -1,0 +1,30 @@
+[195697.932518] BUG: scheduling while atomic: kworker/u8:3/3299/0x00000002
+[195697.940012] Modules linked in: snd_usb_audio snd_hwdep snd_usbmidi_lib snd_seq_dummy snd_hrtimer snd_seq_midi snd_seq_midi_event snd_seq 8021q garp stp mrp llc brcmfmac brcmutil cfg80211 spidev bcm2835_v4l2(C) bcm2835_codec(C) v4l2_mem2mem bcm2835_mmal_vchiq(C) v4l2_
+common videobuf2_vmalloc videobuf2_dma_contig videobuf2_memops videobuf2_v4l2 videobuf2_common raspberrypi_hwmon videodev snd_soc_pisound hwmon snd_rawmidi media snd_seq_device spi_bcm2835 snd_soc_bcm2835_i2s i2c_bcm2835 snd_soc_pcm5102a vc_sm_cma(C) bcm2835_rng rng_core
+ snd_soc_core snd_compress snd_pcm_dmaengine fixed uio_pdrv_genirq uio sch_fq_codel i2c_dev i2c_bcm2708 snd_bcm2835(C) snd_pcm snd_timer snd ip_tables x_tables ipv6
+[195697.968737] Preemption disabled at:
+[195697.968748] [<00000000>]   (null)
+[195697.983303] CPU: 3 PID: 3299 Comm: kworker/u8:3 Tainted: G        WC        4.19.50-1-ARCH #1
+[195697.990559] Hardware name: BCM2835
+[195697.997689] Workqueue: pisnd_workqueue pisnd_work_handler [snd_soc_pisound]
+[195698.004977] [<8011011c>] (unwind_backtrace) from [<8010c700>] (show_stack+0x10/0x14)
+[195698.012221] [<8010c700>] (show_stack) from [<80b0c61c>] (dump_stack+0xb8/0xe0)
+[195698.019510] [<80b0c61c>] (dump_stack) from [<801548e8>] (__schedule_bug+0x98/0xd4)
+[195698.026806] [<801548e8>] (__schedule_bug) from [<80b21e58>] (__schedule+0x800/0xa58)
+[195698.034009] [<80b21e58>] (__schedule) from [<80b220f4>] (schedule+0x44/0xb0)
+[195698.041336] [<80b220f4>] (schedule) from [<80b25b64>] (schedule_timeout+0x1c0/0x474)
+[195698.048448] [<80b25b64>] (schedule_timeout) from [<80b22df8>] (wait_for_common+0x130/0x168)
+[195698.055741] [<80b22df8>] (wait_for_common) from [<8086d33c>] (spi_transfer_one_message+0x134/0x534)
+[195698.062866] [<8086d33c>] (spi_transfer_one_message) from [<8086daac>] (__spi_pump_messages+0x370/0x744)
+[195698.070315] [<8086daac>] (__spi_pump_messages) from [<8086e0cc>] (__spi_sync+0x240/0x25c)
+[195698.077671] [<8086e0cc>] (__spi_sync) from [<8086e10c>] (spi_sync+0x24/0x3c)
+[195698.084771] [<8086e10c>] (spi_sync) from [<7f20d480>] (spi_transfer+0xb4/0x114 [snd_soc_pisound])
+[195698.091989] [<7f20d480>] (spi_transfer [snd_soc_pisound]) from [<7f20d5e0>] (pisnd_work_handler+0x100/0x2bc [snd_soc_pisound])
+[195698.099102] [<7f20d5e0>] (pisnd_work_handler [snd_soc_pisound]) from [<801466f4>] (process_one_work+0x20c/0x554)
+[195698.106447] [<801466f4>] (process_one_work) from [<80147614>] (worker_thread+0x2c/0x574)
+[195698.113603] [<80147614>] (worker_thread) from [<8014c3e4>] (kthread+0x134/0x14c)
+[195698.120942] [<8014c3e4>] (kthread) from [<801010d8>] (ret_from_fork+0x14/0x3c)
+[195698.128132] Exception stack(0xb4f25fb0 to 0xb4f25ff8)
+[195698.135215] 5fa0:                                     00000000 00000000 00000000 00000000
+[195698.142566] 5fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[195698.149746] 5fe0: 00000000 00000000 00000000 00000000 00000013 00000000
